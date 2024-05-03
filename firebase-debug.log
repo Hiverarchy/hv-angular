@@ -1,0 +1,212 @@
+[debug] [2024-03-20T20:50:28.425Z] ----------------------------------------------------------------------
+[debug] [2024-03-20T20:50:28.426Z] Command:       /Users/golfergeek/.nvm/versions/node/v20.11.1/bin/node /Users/golfergeek/.nvm/versions/node/v20.11.1/bin/firebase emulators:start
+[debug] [2024-03-20T20:50:28.426Z] CLI Version:   13.5.2
+[debug] [2024-03-20T20:50:28.426Z] Platform:      darwin
+[debug] [2024-03-20T20:50:28.426Z] Node Version:  v20.11.1
+[debug] [2024-03-20T20:50:28.427Z] Time:          Wed Mar 20 2024 15:50:28 GMT-0500 (Central Daylight Time)
+[debug] [2024-03-20T20:50:28.427Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-20T20:50:28.479Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-20T20:50:28.479Z] > authorizing via signed-in user (golfergeek@gmail.com)
+[debug] [2024-03-20T20:50:28.870Z] openjdk version "11.0.16.1" 2022-08-12 LTS
+[debug] [2024-03-20T20:50:28.871Z] 
+OpenJDK Runtime Environment Microsoft-40648 (build 11.0.16.1+1-LTS)
+OpenJDK 64-Bit Server VM Microsoft-40648 (build 11.0.16.1+1-LTS, mixed mode)
+
+[debug] [2024-03-20T20:50:28.875Z] Parsed Java major version: 11
+[info] i  emulators: Starting emulators: storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: storage"}}
+[debug] [2024-03-20T20:50:29.657Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-03-20T20:50:29.657Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[warn] ⚠  ui: Emulator UI unable to start on port 4000, starting on 4001 instead. {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI unable to start on port 4000, starting on 4001 instead."}}
+[debug] [2024-03-20T20:50:29.658Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-03-20T20:50:29.660Z] [hub] writing locator at /var/folders/1t/fj_0_tt92z945n1bck6bg2680000gn/T/hub-hiverarchy-firebase.json
+[debug] [2024-03-20T20:50:29.663Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-03-20T20:50:30.799Z] Temp file directory for storage emulator: /var/folders/1t/fj_0_tt92z945n1bck6bg2680000gn/T/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: /var/folders/1t/fj_0_tt92z945n1bck6bg2680000gn/T/firebase/storage/blobs"}}
+[info] i  ui: downloading ui-v1.11.8.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.11.8.zip..."}}
+[debug] [2024-03-20T20:50:30.803Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.8.zip 
+[debug] [2024-03-20T20:50:30.993Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.8.zip 200
+[debug] [2024-03-20T20:50:30.993Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.8.zip [stream]
+[debug] [2024-03-20T20:50:31.664Z] Data is 3523907
+[debug] [2024-03-20T20:50:31.664Z] [unzip] Entry: client/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.664Z] [unzip] Processing entry: client/
+[debug] [2024-03-20T20:50:31.664Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/
+[debug] [2024-03-20T20:50:31.664Z] [unzip] Entry: client/favicon.ico (compressed_size=2497 bytes, uncompressed_size=7406 bytes)
+[debug] [2024-03-20T20:50:31.664Z] [unzip] Processing entry: client/favicon.ico
+[debug] [2024-03-20T20:50:31.664Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.664Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/favicon.ico
+[debug] [2024-03-20T20:50:31.666Z] [unzip] Entry: client/apple-touch-icon.png (compressed_size=7231 bytes, uncompressed_size=7367 bytes)
+[debug] [2024-03-20T20:50:31.666Z] [unzip] Processing entry: client/apple-touch-icon.png
+[debug] [2024-03-20T20:50:31.666Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.666Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/apple-touch-icon.png
+[debug] [2024-03-20T20:50:31.667Z] [unzip] Entry: client/android-chrome-512x512.png (compressed_size=16987 bytes, uncompressed_size=18186 bytes)
+[debug] [2024-03-20T20:50:31.667Z] [unzip] Processing entry: client/android-chrome-512x512.png
+[debug] [2024-03-20T20:50:31.667Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.667Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/android-chrome-512x512.png
+[debug] [2024-03-20T20:50:31.667Z] [unzip] Entry: client/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.667Z] [unzip] Processing entry: client/assets/
+[debug] [2024-03-20T20:50:31.667Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/
+[debug] [2024-03-20T20:50:31.667Z] [unzip] Entry: client/assets/extensions/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.667Z] [unzip] Processing entry: client/assets/extensions/
+[debug] [2024-03-20T20:50:31.667Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/extensions/
+[debug] [2024-03-20T20:50:31.668Z] [unzip] Entry: client/assets/extensions/default-extension.png (compressed_size=1646 bytes, uncompressed_size=1657 bytes)
+[debug] [2024-03-20T20:50:31.668Z] [unzip] Processing entry: client/assets/extensions/default-extension.png
+[debug] [2024-03-20T20:50:31.668Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/extensions
+[debug] [2024-03-20T20:50:31.668Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/extensions/default-extension.png
+[debug] [2024-03-20T20:50:31.668Z] [unzip] Entry: client/assets/index-Z4-ilXvq.js.map (compressed_size=2229704 bytes, uncompressed_size=9599487 bytes)
+[debug] [2024-03-20T20:50:31.668Z] [unzip] Processing entry: client/assets/index-Z4-ilXvq.js.map
+[debug] [2024-03-20T20:50:31.668Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets
+[debug] [2024-03-20T20:50:31.668Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/index-Z4-ilXvq.js.map
+[debug] [2024-03-20T20:50:31.692Z] [unzip] Entry: client/assets/provider-icons/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.692Z] [unzip] Processing entry: client/assets/provider-icons/
+[debug] [2024-03-20T20:50:31.692Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/
+[debug] [2024-03-20T20:50:31.692Z] [unzip] Entry: client/assets/provider-icons/auth_service_oidc.svg (compressed_size=414 bytes, uncompressed_size=858 bytes)
+[debug] [2024-03-20T20:50:31.692Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_oidc.svg
+[debug] [2024-03-20T20:50:31.692Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.692Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_oidc.svg
+[debug] [2024-03-20T20:50:31.692Z] [unzip] Entry: client/assets/provider-icons/auth_service_yahoo.svg (compressed_size=577 bytes, uncompressed_size=1182 bytes)
+[debug] [2024-03-20T20:50:31.692Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_yahoo.svg
+[debug] [2024-03-20T20:50:31.692Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.693Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_yahoo.svg
+[debug] [2024-03-20T20:50:31.693Z] [unzip] Entry: client/assets/provider-icons/auth_service_phone.svg (compressed_size=261 bytes, uncompressed_size=414 bytes)
+[debug] [2024-03-20T20:50:31.693Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_phone.svg
+[debug] [2024-03-20T20:50:31.693Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.693Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_phone.svg
+[debug] [2024-03-20T20:50:31.693Z] [unzip] Entry: client/assets/provider-icons/auth_service_saml.svg (compressed_size=575 bytes, uncompressed_size=1226 bytes)
+[debug] [2024-03-20T20:50:31.693Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_saml.svg
+[debug] [2024-03-20T20:50:31.693Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.693Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_saml.svg
+[debug] [2024-03-20T20:50:31.694Z] [unzip] Entry: client/assets/provider-icons/auth_service_mslive.svg (compressed_size=203 bytes, uncompressed_size=378 bytes)
+[debug] [2024-03-20T20:50:31.694Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_mslive.svg
+[debug] [2024-03-20T20:50:31.694Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.694Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_mslive.svg
+[debug] [2024-03-20T20:50:31.694Z] [unzip] Entry: client/assets/provider-icons/auth_service_facebook.svg (compressed_size=289 bytes, uncompressed_size=457 bytes)
+[debug] [2024-03-20T20:50:31.694Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_facebook.svg
+[debug] [2024-03-20T20:50:31.694Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.694Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_facebook.svg
+[debug] [2024-03-20T20:50:31.694Z] [unzip] Entry: client/assets/provider-icons/auth_service_play_games.svg (compressed_size=565 bytes, uncompressed_size=1173 bytes)
+[debug] [2024-03-20T20:50:31.694Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_play_games.svg
+[debug] [2024-03-20T20:50:31.694Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.695Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_play_games.svg
+[debug] [2024-03-20T20:50:31.695Z] [unzip] Entry: client/assets/provider-icons/auth_service_github.svg (compressed_size=466 bytes, uncompressed_size=838 bytes)
+[debug] [2024-03-20T20:50:31.695Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_github.svg
+[debug] [2024-03-20T20:50:31.695Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.695Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_github.svg
+[debug] [2024-03-20T20:50:31.695Z] [unzip] Entry: client/assets/provider-icons/auth_service_apple.svg (compressed_size=230 bytes, uncompressed_size=334 bytes)
+[debug] [2024-03-20T20:50:31.695Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_apple.svg
+[debug] [2024-03-20T20:50:31.695Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.695Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_apple.svg
+[debug] [2024-03-20T20:50:31.695Z] [unzip] Entry: client/assets/provider-icons/auth_service_google.svg (compressed_size=409 bytes, uncompressed_size=720 bytes)
+[debug] [2024-03-20T20:50:31.695Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_google.svg
+[debug] [2024-03-20T20:50:31.695Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.696Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_google.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Entry: client/assets/provider-icons/auth_service_email.svg (compressed_size=228 bytes, uncompressed_size=326 bytes)
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_email.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.696Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_email.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Entry: client/assets/provider-icons/auth_service_twitter.svg (compressed_size=444 bytes, uncompressed_size=751 bytes)
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_twitter.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.696Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_twitter.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Entry: client/assets/provider-icons/auth_service_game_center.svg (compressed_size=991 bytes, uncompressed_size=3921 bytes)
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_game_center.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons
+[debug] [2024-03-20T20:50:31.696Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/provider-icons/auth_service_game_center.svg
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Entry: client/assets/img/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.696Z] [unzip] Processing entry: client/assets/img/
+[debug] [2024-03-20T20:50:31.696Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/img/
+[debug] [2024-03-20T20:50:31.697Z] [unzip] Entry: client/assets/img/database.png (compressed_size=29449 bytes, uncompressed_size=29988 bytes)
+[debug] [2024-03-20T20:50:31.697Z] [unzip] Processing entry: client/assets/img/database.png
+[debug] [2024-03-20T20:50:31.697Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/img
+[debug] [2024-03-20T20:50:31.697Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/img/database.png
+[debug] [2024-03-20T20:50:31.697Z] [unzip] Entry: client/assets/index-Cj5I7867.css (compressed_size=35786 bytes, uncompressed_size=297937 bytes)
+[debug] [2024-03-20T20:50:31.697Z] [unzip] Processing entry: client/assets/index-Cj5I7867.css
+[debug] [2024-03-20T20:50:31.697Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets
+[debug] [2024-03-20T20:50:31.697Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/index-Cj5I7867.css
+[debug] [2024-03-20T20:50:31.698Z] [unzip] Entry: client/assets/index-Z4-ilXvq.js (compressed_size=563876 bytes, uncompressed_size=2021818 bytes)
+[debug] [2024-03-20T20:50:31.698Z] [unzip] Processing entry: client/assets/index-Z4-ilXvq.js
+[debug] [2024-03-20T20:50:31.698Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets
+[debug] [2024-03-20T20:50:31.698Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/assets/index-Z4-ilXvq.js
+[debug] [2024-03-20T20:50:31.703Z] [unzip] Entry: client/safari-pinned-tab.svg (compressed_size=838 bytes, uncompressed_size=1504 bytes)
+[debug] [2024-03-20T20:50:31.703Z] [unzip] Processing entry: client/safari-pinned-tab.svg
+[debug] [2024-03-20T20:50:31.703Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.703Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/safari-pinned-tab.svg
+[debug] [2024-03-20T20:50:31.703Z] [unzip] Entry: client/mstile-150x150.png (compressed_size=5406 bytes, uncompressed_size=5723 bytes)
+[debug] [2024-03-20T20:50:31.703Z] [unzip] Processing entry: client/mstile-150x150.png
+[debug] [2024-03-20T20:50:31.703Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.703Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/mstile-150x150.png
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Entry: client/browserconfig.xml (compressed_size=491 bytes, uncompressed_size=822 bytes)
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Processing entry: client/browserconfig.xml
+[debug] [2024-03-20T20:50:31.704Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.704Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/browserconfig.xml
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Entry: client/robots.txt (compressed_size=26 bytes, uncompressed_size=26 bytes)
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Processing entry: client/robots.txt
+[debug] [2024-03-20T20:50:31.704Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Writing file: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/robots.txt
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Entry: client/index.html (compressed_size=1365 bytes, uncompressed_size=3071 bytes)
+[debug] [2024-03-20T20:50:31.704Z] [unzip] Processing entry: client/index.html
+[debug] [2024-03-20T20:50:31.704Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.704Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/index.html
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Entry: client/favicon-16x16.png (compressed_size=757 bytes, uncompressed_size=777 bytes)
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Processing entry: client/favicon-16x16.png
+[debug] [2024-03-20T20:50:31.705Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.705Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/favicon-16x16.png
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Entry: client/manifest.json (compressed_size=246 bytes, uncompressed_size=551 bytes)
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Processing entry: client/manifest.json
+[debug] [2024-03-20T20:50:31.705Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.705Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/manifest.json
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Entry: client/favicon-32x32.png (compressed_size=1175 bytes, uncompressed_size=1175 bytes)
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Processing entry: client/favicon-32x32.png
+[debug] [2024-03-20T20:50:31.705Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Writing file: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/favicon-32x32.png
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Entry: client/android-chrome-192x192.png (compressed_size=7602 bytes, uncompressed_size=7834 bytes)
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Processing entry: client/android-chrome-192x192.png
+[debug] [2024-03-20T20:50:31.705Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client
+[debug] [2024-03-20T20:50:31.705Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/client/android-chrome-192x192.png
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Entry: server/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.705Z] [unzip] Processing entry: server/
+[debug] [2024-03-20T20:50:31.705Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/
+[debug] [2024-03-20T20:50:31.706Z] [unzip] Entry: server/server.mjs (compressed_size=311497 bytes, uncompressed_size=1147307 bytes)
+[debug] [2024-03-20T20:50:31.706Z] [unzip] Processing entry: server/server.mjs
+[debug] [2024-03-20T20:50:31.706Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server
+[debug] [2024-03-20T20:50:31.706Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/server.mjs
+[debug] [2024-03-20T20:50:31.708Z] [unzip] Entry: server/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-03-20T20:50:31.708Z] [unzip] Processing entry: server/assets/
+[debug] [2024-03-20T20:50:31.708Z] [unzip] mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/assets/
+[debug] [2024-03-20T20:50:31.708Z] [unzip] Entry: server/assets/multipart-parser-n20ATYm_.mjs.map (compressed_size=4790 bytes, uncompressed_size=17920 bytes)
+[debug] [2024-03-20T20:50:31.708Z] [unzip] Processing entry: server/assets/multipart-parser-n20ATYm_.mjs.map
+[debug] [2024-03-20T20:50:31.708Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/assets
+[debug] [2024-03-20T20:50:31.708Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/assets/multipart-parser-n20ATYm_.mjs.map
+[debug] [2024-03-20T20:50:31.709Z] [unzip] Entry: server/assets/multipart-parser-n20ATYm_.mjs (compressed_size=2625 bytes, uncompressed_size=10428 bytes)
+[debug] [2024-03-20T20:50:31.709Z] [unzip] Processing entry: server/assets/multipart-parser-n20ATYm_.mjs
+[debug] [2024-03-20T20:50:31.709Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/assets
+[debug] [2024-03-20T20:50:31.709Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/assets/multipart-parser-n20ATYm_.mjs
+[debug] [2024-03-20T20:50:31.709Z] [unzip] Entry: server/server.mjs.map (compressed_size=286219 bytes, uncompressed_size=1310517 bytes)
+[debug] [2024-03-20T20:50:31.709Z] [unzip] Processing entry: server/server.mjs.map
+[debug] [2024-03-20T20:50:31.709Z] [unzip] else mkdir: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server
+[debug] [2024-03-20T20:50:31.709Z] [unzip] deflating: /Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/server.mjs.map
+[info] i  ui: Removing outdated emulator files: ui-v1.11.4 {"metadata":{"emulator":{"name":"ui"},"message":"Removing outdated emulator files: ui-v1.11.4"}}
+[info] i  ui: Removing outdated emulator files: ui-v1.11.4.zip {"metadata":{"emulator":{"name":"ui"},"message":"Removing outdated emulator files: ui-v1.11.4.zip"}}
+[debug] [2024-03-20T20:50:31.715Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-03-20T20:50:31.715Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-03-20T20:50:31.715Z] Starting Emulator UI with command {"binary":"node","args":["/Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/server.mjs"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/golfergeek/.cache/firebase/emulators/ui-v1.11.8/server/server.mjs\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2024-03-20T20:50:31.773Z] Web / API server started at 127.0.0.1:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4001\n"}}
+[debug] [2024-03-20T20:50:31.773Z] Web / API server started at ::1:4001
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4001\n"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4001/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┬───────────────────────────────┐
+│ Emulator │ Host:Port      │ View in Emulator UI           │
+├──────────┼────────────────┼───────────────────────────────┤
+│ Storage  │ 127.0.0.1:9199 │ http://127.0.0.1:4001/storage │
+└──────────┴────────────────┴───────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
