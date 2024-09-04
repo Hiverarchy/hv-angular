@@ -10,6 +10,7 @@ import {getStorage, provideStorage} from '@angular/fire/storage';
 
 import { routes } from './app.routes';
 import { FirebaseConfiguration } from './configuration/firebase.config';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +23,6 @@ export const appConfig: ApplicationConfig = {
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
       provideFunctions(() => getFunctions())
-    ),
+    ), provideAnimationsAsync(),
   ],
 };
