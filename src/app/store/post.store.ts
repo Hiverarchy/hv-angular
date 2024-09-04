@@ -92,6 +92,25 @@ export const PostStore = signalStore(
       }
     },
 
+    getPostsByUserId: async (userId: string) => {
+      patchState(store, { loading: true, error: null });
+      try {
+        const q = query(
+          collection(firestore, 'posts'),
+          where('userId', '==', userId),
+          where('parentId', '==', null),
+          orderBy('createdAt', 'desc')
+        );
+        const querySnapshot = await getDocs(q);
+        const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Post);
+        patchState(store, { posts, loading: false });
+        return posts;
+      } catch (error) {
+        patchState(store, { error: 'Failed to get posts', loading: false });
+        throw error;
+      }
+    },
+
     setCurrentPost: (post: Post | null) => patchState(store, { currentPost: post }),
   }))
 );

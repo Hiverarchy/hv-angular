@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { signalStore, withState, patchState, withMethods } from '@ngrx/signals';
-import { Auth, User, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { Auth, User, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 interface AuthState {
@@ -18,6 +18,13 @@ const initialState: AuthState = {
 export const AuthStore = signalStore(
   withState(initialState),
   withMethods((store, auth = inject(Auth), router = inject(Router)) => ({
+    checkAuth: async () => {
+      if (auth.currentUser) {
+        patchState(store, { user: auth.currentUser, loading: false });
+      } else {
+        patchState(store, { user: undefined, loading: false });
+      }
+    },
     login: async (email: string, password: string) => {
       patchState(store, { loading: true, error: null });
       try {
@@ -60,5 +67,19 @@ export const AuthStore = signalStore(
       }
     },
     setUser: (user: User | undefined) => patchState(store, { user }),
+    updateProfile: async (profileData: { displayName?: string | null, photoURL?: string | null }) => {
+      patchState(store, { loading: true, error: null });
+      try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          await updateProfile(currentUser, profileData);
+          patchState(store, { user: currentUser, loading: false });
+        } else {
+          throw new Error('No user is currently signed in');
+        }
+      } catch (error) {
+        patchState(store, { error: 'Failed to update profile', loading: false });
+      }
+    }
   }))
 );

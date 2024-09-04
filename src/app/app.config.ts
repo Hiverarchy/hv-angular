@@ -11,6 +11,10 @@ import {getStorage, provideStorage} from '@angular/fire/storage';
 import { routes } from './app.routes';
 import { FirebaseConfiguration } from './configuration/firebase.config';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AuthService } from './services/auth.service';
+import { AuthStore } from './store/auth.store';
+import { PostStore } from './store/post.store';
+import { PostService } from './services/post.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +27,9 @@ export const appConfig: ApplicationConfig = {
     provideStorage(() => getStorage()),
     provideFunctions(() => getFunctions()),
     provideAnimationsAsync(),
+    AuthService,
+    AuthStore,
+    PostService,
+    PostStore,
   ],
 };

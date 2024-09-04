@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
-import { PostStore } from '../../store/post.store';
-import { AuthStore } from '../../store/auth.store';
+import { AuthService } from '../../services/auth.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  providers: [PostStore, AuthStore],
   imports: [CommonModule, FormsModule],
   template: `
     <h2>Create New Hiverarchy</h2>
@@ -53,9 +52,9 @@ import { AuthStore } from '../../store/auth.store';
   `]
 })
 export class NewPostComponent {
-  public postStore = inject(PostStore);
+  private postService = inject(PostService);
   private router = inject(Router);
-  private authStore = inject(AuthStore);
+  private authService = inject(AuthService);
 
   newPost: Omit<Post, 'id'> = {
     title: '',
@@ -65,14 +64,14 @@ export class NewPostComponent {
     createdAt: new Date(),
     updatedAt: new Date(),
     parentId: null,
-    authorId: this.authStore.user()!.uid
+    authorId: this.authService.user()!.uid
   };
   tagInput = '';
 
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
       this.newPost.tags = this.tagInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-      const postId = this.postStore.createPost({
+      const postId = this.postService.createPost({
         ...this.newPost
       });
       this.router.navigate(['/post', postId]);
