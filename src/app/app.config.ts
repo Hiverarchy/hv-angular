@@ -1,29 +1,27 @@
 import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {provideRouter, withViewTransitions} from '@angular/router';
-
-import {provideAuth, getAuth, connectAuthEmulator} from '@angular/fire/auth';
-import {provideFirestore, getFirestore, connectFirestoreEmulator} from '@angular/fire/firestore';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
-import {provideStorage, getStorage} from '@angular/fire/storage'
+import {provideHttpClient} from '@angular/common/http';
+import {provideAnimations} from '@angular/platform-browser/animations';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import {getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {getFunctions, provideFunctions} from '@angular/fire/functions';
+import {getStorage, provideStorage} from '@angular/fire/storage';
 
 import { routes } from './app.routes';
-import {initializeApp, provideFirebaseApp} from '@angular/fire/app'
-import {provideAnimations} from '@angular/platform-browser/animations'
-import { FirebaseConfiguration } from '../app/configeration/firebase.config';
+import { FirebaseConfiguration } from './configuration/firebase.config';
 
-
-// @ts-ignore
-export let appConfig: ApplicationConfig
-appConfig = {
+export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions()),
     provideAnimations(),
-    importProvidersFrom([
+    provideHttpClient(),
+    importProvidersFrom(
       provideFirebaseApp(() => initializeApp(FirebaseConfiguration)),
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
-      provideFunctions(() => getFunctions()),
-    ]),
+      provideFunctions(() => getFunctions())
+    ),
   ],
-}
+};
