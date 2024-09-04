@@ -17,12 +17,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withViewTransitions()),
     provideAnimations(),
     provideHttpClient(),
-    importProvidersFrom(
-      provideFirebaseApp(() => initializeApp(FirebaseConfiguration)),
-      provideAuth(() => getAuth()),
-      provideFirestore(() => getFirestore()),
-      provideStorage(() => getStorage()),
-      provideFunctions(() => getFunctions())
-    ), provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp(FirebaseConfiguration)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideFunctions(() => getFunctions()),
+    provideAnimationsAsync(),
   ],
 };
