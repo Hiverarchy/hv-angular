@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FirebaseService } from '../../services/firebase.service';
 import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
+import { PostStore } from '../../store/post.store';
+import { AuthStore } from '../../store/auth.store';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
+  providers: [PostStore, AuthStore],
   imports: [CommonModule, FormsModule],
   template: `
     <h2>Create New Hiverarchy</h2>
@@ -51,25 +53,27 @@ import { Post } from '../../models/post.model';
   `]
 })
 export class NewPostComponent {
-  private firebaseService = inject(FirebaseService);
+  public postStore = inject(PostStore);
   private router = inject(Router);
+  private authStore = inject(AuthStore);
 
-  newPost: Omit<Post, 'id' | 'authorId' | 'createdAt' | 'updatedAt'> = {
+  newPost: Omit<Post, 'id'> = {
     title: '',
     description: '',
     content: '',
     tags: [],
-    parentId: null
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    parentId: null,
+    authorId: this.authStore.user()!.uid
   };
   tagInput = '';
 
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
       this.newPost.tags = this.tagInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-      const postId = await this.firebaseService.createPost({
-        ...this.newPost,
-        createdAt: new Date(),
-        updatedAt: new Date()
+      const postId = this.postStore.createPost({
+        ...this.newPost
       });
       this.router.navigate(['/post', postId]);
     }

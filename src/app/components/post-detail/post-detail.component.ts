@@ -1,25 +1,26 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FirebaseService } from '../../services/firebase.service';
 import { Post } from '../../models/post.model';
+import { PostStore } from '../../store/post.store';
 
 @Component({
   selector: 'app-post-detail',
   standalone: true,
+  providers: [PostStore],
   imports: [CommonModule, RouterLink],
   template: `
-    @if (post) {
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.description }}</p>
-      <div [innerHTML]="post.content"></div>
+    @if (postStore.currentPost()) {
+      <h2>{{ postStore.currentPost()!.title }}</h2>
+      <p>{{ postStore.currentPost()!.description }}</p>
+      <div [innerHTML]="postStore.currentPost()!.content"></div>
       <div>
         <strong>Tags:</strong>
-        @for (tag of post.tags; track tag) {
+        @for (tag of postStore.currentPost()!.tags; track tag) {
           <span class="tag">{{ tag }}</span>
         }
       </div>
-      <button [routerLink]="['/edit-post', post.id]">Edit Post</button>
+      <button [routerLink]="['/edit-post', postStore.currentPost()!.id]">Edit Post</button>
     } @else {
       <p>Loading...</p>
     }
@@ -35,9 +36,8 @@ import { Post } from '../../models/post.model';
 })
 export class PostDetailComponent implements OnInit {
   route = inject(ActivatedRoute);
-  firebaseService = inject(FirebaseService);
+  postStore = inject(PostStore);
 
-  post: Post | null = null;
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -49,6 +49,6 @@ export class PostDetailComponent implements OnInit {
   }
 
   async loadPost(id: string) {
-    this.post = await this.firebaseService.getPostById(id);
+    await this.postStore.getPostById(id);
   }
 }
