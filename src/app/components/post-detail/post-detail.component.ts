@@ -19,7 +19,7 @@ import { PostStore } from '../../store/post.store';
           <span class="tag">{{ tag }}</span>
         }
       </div>
-      <button [routerLink]="['/edit-post', postStore.currentPost()!.id]">Edit Post</button>
+      <button (click)="editPost()">Edit Post</button>
     } @else {
       <p>Loading...</p>
     }
@@ -36,15 +36,18 @@ import { PostStore } from '../../store/post.store';
 export class PostDetailComponent implements OnInit {
   route = inject(ActivatedRoute);
   postStore = inject(PostStore);
+  postId = this.route.snapshot.paramMap.get('id');
+  router = inject(Router);
 
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id) {
-        this.loadPost(id);
-      }
-    });
+    if (this.postId) {
+      this.loadPost(this.postId);
+    }
+  }
+
+  editPost() {
+    this.router.navigateByUrl(`/posts/${this.postId}/edit`);
   }
 
   async loadPost(id: string) {
