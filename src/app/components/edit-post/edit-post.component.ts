@@ -8,7 +8,6 @@ import { take } from 'rxjs/operators';
   selector: 'app-edit-post',
   standalone: true,
   imports: [ReactiveFormsModule],
-  providers: [PostStore],
   template: `
     <div class="edit-post">
       <h2>Edit Post</h2>

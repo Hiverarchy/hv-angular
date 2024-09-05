@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthStore } from '../../store/auth.store';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  providers: [AuthStore],
   imports: [CommonModule, FormsModule],
   template: `
     <div>
@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
   `
 })
 export class LoginComponent {
-  private authStore = inject(AuthStore);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   email = '';
@@ -38,7 +38,7 @@ export class LoginComponent {
 
   async signIn() {
     try {
-      this.authStore.login(this.email, this.password);
+      this.authService.login(this.email, this.password);
       this.router.navigate(['/']);
     } catch (error) {
       console.error('Sign in error:', error);
@@ -46,7 +46,7 @@ export class LoginComponent {
   }
   async signUp() {
     try {
-      await this.authStore.signUp(this.email, this.password);
+      await this.authService.signUp(this.email, this.password);
       this.router.navigate(['/']);
     } catch (error) {
       console.error('Sign up error:', error);
@@ -55,7 +55,7 @@ export class LoginComponent {
 
   async signInWithGoogle() {
     try {
-      await this.authStore.signInWithGoogle();
+      this.authService.loginWithGoogle();
       this.router.navigate(['/']);
     } catch (error) {
       console.error('Google sign in error:', error);

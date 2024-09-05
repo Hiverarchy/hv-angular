@@ -71,6 +71,12 @@ export class NewPostComponent {
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
       this.newPost.tags = this.tagInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+      this.newPost.authorId = this.authService.user()!.uid;
+      if (this.postService.selectedPost()) {
+        this.newPost.parentId = this.postService.selectedPost()!.id;
+      } else {
+        this.newPost.parentId = this.authService.user()!.userInfo.mainPageId;
+      }
       const postId = this.postService.createPost({
         ...this.newPost
       });

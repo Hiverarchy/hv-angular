@@ -10,6 +10,11 @@ export interface Post {
   updatedAt: Date;
 }
 
+export interface PostTitleAndId {
+  id: string;
+  title: string;
+}
+
 export interface Comment {
   id: string;
   postId: string;

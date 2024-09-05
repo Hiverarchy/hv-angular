@@ -22,6 +22,14 @@ export class AuthService {
 
   login(email: string, password: string) {
     this.authStore.login(email, password);
+    const url = this.user()?.userInfo?.mainPageId ? `/posts/${this.user()?.userInfo?.mainPageId}` : '/';
+    this.router.navigateByUrl(url);
+  }
+
+  loginWithGoogle() {
+    this.authStore.signInWithGoogle();
+    const url = this.user()?.userInfo?.mainPageId ? `/posts/${this.user()?.userInfo?.mainPageId}` : '/';
+    this.router.navigateByUrl(url);
   }
 
   logout() {
@@ -33,11 +41,11 @@ export class AuthService {
     this.authStore.signUp(email, password);
   }
 
-  updateProfile(user: Partial<User>) {
-    this.authStore.updateProfile(user);
-  }
+//   updateProfile(user: Partial<User>) {
+//     this.authStore.updateProfile(user);
+//   }
 
   isLoggedIn(): boolean {
-    return this.user() !== null;
+    return this.user() !== null && this.user() !== undefined;
   }
 }

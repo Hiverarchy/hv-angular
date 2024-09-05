@@ -7,7 +7,6 @@ import { PostStore } from '../../store/post.store';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  providers: [PostStore],
   imports: [CommonModule, RouterLink],
   template: `
     @if (postStore.currentPost()) {
