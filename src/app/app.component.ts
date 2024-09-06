@@ -44,7 +44,21 @@ import { User } from './models/user.model';
               <mat-nav-list>
                 @for (post of authService.user()?.userInfo?.posts; track post.id) {
                   <a mat-list-item [routerLink]="['/posts', post.id]">
+                    <button mat-icon-button (click)="viewChildren(post.id)">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
                     {{ post.title }}
+                    @if (post.id !== authService.user()?.userInfo?.mainPageId) {
+                      <button mat-icon-button (click)="deletePost(post.id)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    }
+                    @for (child of post.children; track child.id) {
+                      <button mat-icon-button (click)="viewChildren(child.id)">
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                      {{ child.title }}
+                    }
                   </a>
                 }
               </mat-nav-list>
@@ -111,11 +125,16 @@ import { User } from './models/user.model';
 export class AppComponent {
   currentUser: User | undefined = undefined;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, public postService: PostService) {
     this.authService.checkAuth();
-    effect(() => {
-      this.currentUser = this.authService.user();
-    });
 
   }
+
+  viewChildren(postId: string) {
+    this.postService.getPostsByParentId(postId);
+  }
+
+  deletePost(postId: string) {
+    console.log(postId);
+  } 
 }

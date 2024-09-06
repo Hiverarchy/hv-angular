@@ -1,6 +1,6 @@
-import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, SecurityContext} from '@angular/core';
 import {provideRouter, withViewTransitions} from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getAuth, provideAuth} from '@angular/fire/auth';
@@ -15,6 +15,7 @@ import { AuthService } from './services/auth.service';
 import { AuthStore } from './store/auth.store';
 import { PostStore } from './store/post.store';
 import { PostService } from './services/post.service';
+import { MarkdownModule, provideMarkdown } from 'ngx-markdown';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,5 +32,9 @@ export const appConfig: ApplicationConfig = {
     AuthStore,
     PostService,
     PostStore,
+    importProvidersFrom(
+      HttpClientModule,
+      MarkdownModule.forRoot()
+    ),
   ],
 };

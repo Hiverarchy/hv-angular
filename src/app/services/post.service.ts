@@ -8,10 +8,6 @@ export class PostService {
   private postStore = inject(PostStore);
   private authService = inject(AuthService);
 
-  get posts() {
-    return this.postStore.posts;
-  }
-
   get selectedPost() {
     return this.postStore.currentPost;
   }
@@ -20,13 +16,17 @@ export class PostService {
     return this.postStore.loading;
   }
 
-  loadPostsByUserId() {
+  getPostsByUserId() {
     if (this.authService.user()) {
       this.postStore.getPostsByUserId(this.authService.user()!.uid);
     }
   }
 
-  loadPost(id: string) {
+  getPostsByParentId(parentId: string) {
+    this.postStore.getPostsByParentId(parentId);
+  }
+
+  getPost(id: string) {
     this.postStore.getPostById(id);
   }
 
@@ -34,8 +34,8 @@ export class PostService {
     this.postStore.createPost(post);
   }
 
-  updatePost(id: string, post: Partial<Post>) {
-    this.postStore.updatePost(id, post);
+  updatePost(id: string, partialPost: Partial<Post>, post: Post) {
+    this.postStore.updatePost(id, partialPost, post);
   }
 
   deletePost(id: string) {

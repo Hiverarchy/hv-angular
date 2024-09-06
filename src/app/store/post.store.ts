@@ -4,14 +4,12 @@ import { Firestore, collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDo
 import { Post } from '../models/post.model';
 
 interface PostState {
-  posts: Post[];
   currentPost: Post | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: PostState = {
-  posts: [],
   currentPost: null,
   loading: false,
   error: null
@@ -25,7 +23,7 @@ export const PostStore = signalStore(
       try {
         const docRef = await addDoc(collection(firestore, 'posts'), post);
         const newPost = { id: docRef.id, ...post };
-        patchState(store, { posts: [...store.posts(), newPost], loading: false });
+        patchState(store, { currentPost: newPost, loading: false });
         return newPost;
       } catch (error) {
         patchState(store, { error: 'Failed to create post', loading: false });
@@ -33,12 +31,11 @@ export const PostStore = signalStore(
       }
     },
 
-    updatePost: async (id: string, post: Partial<Post>) => {
+    updatePost: async (id: string, partialPost: Partial<Post>, post: Post) => {
       patchState(store, { loading: true, error: null });
       try {
-        await updateDoc(doc(firestore, 'posts', id), post);
-        const updatedPosts = store.posts().map(p => p.id === id ? { ...p, ...post } : p);
-        patchState(store, { posts: updatedPosts, loading: false });
+        updateDoc(doc(firestore, 'posts', id), partialPost);
+        patchState(store, { currentPost: post, loading: false });
       } catch (error) {
         patchState(store, { error: 'Failed to update post', loading: false });
         throw error;
@@ -49,7 +46,7 @@ export const PostStore = signalStore(
       patchState(store, { loading: true, error: null });
       try {
         await deleteDoc(doc(firestore, 'posts', id));
-        patchState(store, { posts: store.posts().filter(p => p.id !== id), loading: false });
+        patchState(store, { currentPost: null, loading: false });
       } catch (error) {
         patchState(store, { error: 'Failed to delete post', loading: false });
         throw error;
@@ -84,7 +81,7 @@ export const PostStore = signalStore(
         );
         const querySnapshot = await getDocs(q);
         const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Post);
-        patchState(store, { posts, loading: false });
+        patchState(store, { loading: false });
         return posts;
       } catch (error) {
         patchState(store, { error: 'Failed to get posts', loading: false });
@@ -103,7 +100,7 @@ export const PostStore = signalStore(
         );
         const querySnapshot = await getDocs(q);
         const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Post);
-        patchState(store, { posts, loading: false });
+        patchState(store, { loading: false });
         return posts;
       } catch (error) {
         patchState(store, { error: 'Failed to get posts', loading: false });

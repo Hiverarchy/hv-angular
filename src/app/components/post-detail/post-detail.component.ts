@@ -3,16 +3,17 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../models/post.model';
 import { PostStore } from '../../store/post.store';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, MarkdownModule],
   template: `
     @if (postStore.currentPost()) {
       <h2>{{ postStore.currentPost()!.title }}</h2>
       <p>{{ postStore.currentPost()!.description }}</p>
-      <div [innerHTML]="postStore.currentPost()!.content"></div>
+      <markdown [data]="postStore.currentPost()!.content"></markdown>
       <div>
         <strong>Tags:</strong>
         @for (tag of postStore.currentPost()!.tags; track tag) {

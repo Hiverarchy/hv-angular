@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostStore } from '../../store/post.store';
 import { take } from 'rxjs/operators';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-edit-post',
@@ -58,16 +59,26 @@ import { take } from 'rxjs/operators';
 export class EditPostComponent implements OnInit {
   postForm: FormGroup;
   postId: string;
+  post: Post | undefined = undefined;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.postId = this.route.snapshot.paramMap.get('id')!;
     this.postForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required]
+    });
+    this.postId = this.route.snapshot.paramMap.get('id')!;
+    this.postStore.getPostById(this.postId).then(post => {
+      if (post) {
+        this.post = post;
+        this.postForm.patchValue({
+          title: post.title,
+          content: post.content
+        });
+      }
     });
   }
 
@@ -94,8 +105,8 @@ export class EditPostComponent implements OnInit {
         ...this.postForm.value,
         id: this.postId
       };
-      this.postStore.updatePost(this.postId, updatedPost);
-      this.router.navigate(['/posts']);
+      this.postStore.updatePost(this.postId, updatedPost, this.post!);
+      this.router.navigate(['/posts', this.postId]);
     }
   }
 }

@@ -10,9 +10,10 @@ export interface Post {
   updatedAt: Date;
 }
 
-export interface PostTitleAndId {
+export interface PostNavItem {
   id: string;
   title: string;
+  children: PostNavItem[];
 }
 
 export interface Comment {

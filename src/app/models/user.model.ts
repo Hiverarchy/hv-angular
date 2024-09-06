@@ -1,4 +1,4 @@
-import { PostTitleAndId } from "./post.model";
+import { PostNavItem } from "./post.model";
 
 export interface UserInfo {
     email: string;
@@ -7,7 +7,7 @@ export interface UserInfo {
     phoneNumber: string;
     tags: string[];
     mainPageId: string;
-    posts: PostTitleAndId[];
+    posts: PostNavItem[];
     headerHTML: string;
     footerHTML: string;
 }

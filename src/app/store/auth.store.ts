@@ -4,7 +4,7 @@ import { Auth, User as FirebaseUser, UserCredential, signInWithEmailAndPassword,
 import { Firestore, doc, getDoc, setDoc, collection, addDoc, updateDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { User, UserInfo } from '../models/user.model';
-import { Post, PostTitleAndId } from '../models/post.model';
+import { Post, PostNavItem } from '../models/post.model';
 
 interface AuthState {
   user: User | undefined;
@@ -49,7 +49,7 @@ const createUserInfo = async (firestore: Firestore, userCredential: UserCredenti
     phoneNumber: userCredential.user.phoneNumber,
     tags: [],
     mainPageId: '',
-    posts: [] as PostTitleAndId[],
+    posts: [] as PostNavItem[],
     headerHTML: '',
     footerHTML: '',
   };
@@ -59,7 +59,7 @@ const createUserInfo = async (firestore: Firestore, userCredential: UserCredenti
       
      // Update user info with the new post
      userData.mainPageId = initialPost.id;
-     userData.posts.push({id: initialPost.id, title: initialPost.title});
+     userData.posts.push({id: initialPost.id, title: initialPost.title, children: []});
      await updateDoc(userRef, {
        mainPageId: initialPost.id,
        posts: [{id: initialPost.id, title: initialPost.title}]
