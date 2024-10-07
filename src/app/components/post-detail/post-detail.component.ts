@@ -10,22 +10,35 @@ import { MarkdownModule } from 'ngx-markdown';
   standalone: true,
   imports: [CommonModule, RouterLink, MarkdownModule],
   template: `
-    @if (postStore.currentPost()) {
-      <h2>{{ postStore.currentPost()!.title }}</h2>
-      <p>{{ postStore.currentPost()!.description }}</p>
-      <markdown [data]="postStore.currentPost()!.content"></markdown>
-      <div>
-        <strong>Tags:</strong>
-        @for (tag of postStore.currentPost()!.tags; track tag) {
-          <span class="tag">{{ tag }}</span>
-        }
-      </div>
-      <button (click)="editPost()">Edit Post</button>
-    } @else {
-      <p>Loading...</p>
-    }
+    <div class="post-container">
+      @if (postStore.currentPost()) {
+        <h2>{{ postStore.currentPost()!.fileName }}</h2>
+        <h2>{{ postStore.currentPost()!.folderName }}</h2>
+        <h2>{{ postStore.currentPost()!.title }}</h2>
+        <p>{{ postStore.currentPost()!.description }}</p>
+        <div class="markdown-container">
+          <markdown [data]="postStore.currentPost()!.content"></markdown>
+        </div>
+        <div>
+          <strong>Tags:</strong>
+          @for (tag of postStore.currentPost()!.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+        <button (click)="editPost()">Edit Post</button>
+      } @else {
+        <p>Loading...</p>
+      }
+    </div>
   `,
   styles: [`
+    .post-container {
+      margin: 2rem;
+    }
+    .markdown-container {
+      height: 80vh;
+      overflow-y: auto;
+    }
     .tag {
       background-color: #e0e0e0;
       padding: 0.2rem 0.5rem;
@@ -40,7 +53,6 @@ export class PostDetailComponent implements OnInit {
   postId = this.route.snapshot.paramMap.get('id');
   router = inject(Router);
 
-
   ngOnInit() {
     if (this.postId) {
       this.loadPost(this.postId);
@@ -48,7 +60,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   editPost() {
-    this.router.navigateByUrl(`/posts/${this.postId}/edit`);
+    this.router.navigateByUrl(`/posts/edit/${this.postId}`);
   }
 
   async loadPost(id: string) {

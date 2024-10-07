@@ -28,12 +28,13 @@ import { User } from './models/user.model';
   template: `
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav mode="side" opened class="sidenav">
-        <mat-toolbar>User Profile</mat-toolbar>
         @if (authService.user()) {
+        <mat-toolbar>User Profile <a routerLink="/edit-user-info">Edit</a></mat-toolbar>
         <div class="user-info">
           <img [src]="authService.user()?.userInfo?.photoURL || 'assets/default-avatar.png'" alt="User avatar" class="user-avatar">
               <h3>{{ authService.user()?.userInfo?.displayName || 'Anonymous' }}</h3>
             <p>{{ authService.user()?.userInfo?.email }}</p>
+            <a routerLink="/posts/{{authService.user()?.userInfo?.mainPageId}}">My Page</a>
           <button mat-stroked-button color="warn" (click)="authService.logout()">
             <mat-icon>exit_to_app</mat-icon>
             Sign Out
@@ -43,23 +44,25 @@ import { User } from './models/user.model';
             <mat-tab label="Your Thoughts">
               <mat-nav-list>
                 @for (post of authService.user()?.userInfo?.posts; track post.id) {
-                  <a mat-list-item [routerLink]="['/posts', post.id]">
-                    <button mat-icon-button (click)="viewChildren(post.id)">
-                      <mat-icon>visibility</mat-icon>
-                    </button>
-                    {{ post.title }}
-                    @if (post.id !== authService.user()?.userInfo?.mainPageId) {
-                      <button mat-icon-button (click)="deletePost(post.id)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    }
-                    @for (child of post.children; track child.id) {
-                      <button mat-icon-button (click)="viewChildren(child.id)">
+                  @if (post.id !== authService.user()?.userInfo?.mainPageId) {
+                    <a mat-list-item [routerLink]="['/posts', post.id]">
+                      <button mat-icon-button (click)="viewChildren(post.id)">
                         <mat-icon>visibility</mat-icon>
                       </button>
-                      {{ child.title }}
-                    }
-                  </a>
+                      {{ post.title }}
+                      @if (post.id !== authService.user()?.userInfo?.mainPageId) {
+                        <button mat-icon-button (click)="deletePost(post.id)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      }
+                      @for (child of post.children; track child.id) {
+                        <button mat-icon-button (click)="viewChildren(child.id)">
+                          <mat-icon>visibility</mat-icon>
+                        </button>
+                        {{ child.title }}
+                      }
+                    </a>
+                  }               
                 }
               </mat-nav-list>
               <button mat-raised-button color="primary" class="new-post-btn" [routerLink]="['/posts', 'new']">
@@ -77,10 +80,6 @@ import { User } from './models/user.model';
               <!-- Add thoughts by tag content here -->
             </mat-tab>
           </mat-tab-group>
-          <button mat-stroked-button color="warn" (click)="authService.logout()">
-            <mat-icon>exit_to_app</mat-icon>
-            Sign Out
-          </button>
         } @else {
         <div class="user-info">
           <p>You are not logged in.</p>

@@ -1,85 +1,137 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Post } from '../../models/post.model';
+import { PostStore } from '../../store/post.store';
 import { AuthService } from '../../services/auth.service';
-import { PostService } from '../../services/post.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule],
   template: `
-    <h2>Create New Hiverarchy</h2>
-    <form (ngSubmit)="createPost()">
-      <div>
-        <label for="title">Title:</label>
-        <input id="title" [(ngModel)]="newPost.title" name="title" required>
-      </div>
-      <div>
-        <label for="description">Description:</label>
-        <textarea id="description" [(ngModel)]="newPost.description" name="description"></textarea>
-      </div>
-      <div>
-        <label for="content">Content:</label>
-        <textarea id="content" [(ngModel)]="newPost.content" name="content" required></textarea>
-      </div>
-      <div>
-        <label for="tags">Tags (comma-separated):</label>
-        <input id="tags" [(ngModel)]="tagInput" name="tags">
-      </div>
-      <button type="submit">Create Hiverarchy</button>
-    </form>
+    <mat-card class="new-post-card">
+      <mat-card-content>
+        <form [formGroup]="postForm" (ngSubmit)="createPost()">
+          <div class="header">
+            <mat-card-header>
+              <mat-card-title>Create New Hiverarchy</mat-card-title>
+            </mat-card-header>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Create Hiverarchy</button>
+          </div>
+          <mat-form-field appearance="fill">
+            <mat-label>File Name</mat-label>
+            <input matInput formControlName="fileName" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Folder Name</mat-label>
+            <input matInput formControlName="folderName" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Tags (comma-separated)</mat-label>
+            <input matInput formControlName="tags">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="5" formControlName="description"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="content-field">
+            <mat-label>Content</mat-label>
+            <textarea matInput rows="25" formControlName="content" required></textarea>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
   `,
   styles: [`
+    :host {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+    .new-post-card {
+      width: 100%;
+      height: 100%;
+      max-width: 800px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    mat-card-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
     form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      height: 100%;
     }
-    label {
-      font-weight: bold;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
     }
-    input, textarea {
+    mat-form-field {
       width: 100%;
-      padding: 0.5rem;
+    }
+    .mat-mdc-form-field-flex {
+      height: 100%;
+    }
+    mat-label {
+      height: 5rem;
+    }
+    .content-field {
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+    .content-field textarea {
+      height: 100%;
     }
     button {
-      align-self: flex-start;
-      padding: 0.5rem 1rem;
+      align-self: flex-end;
     }
   `]
 })
 export class NewPostComponent {
-  private postService = inject(PostService);
+  postForm: FormGroup;
+  private postStore = inject(PostStore);
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  newPost: Omit<Post, 'id'> = {
-    title: '',
-    description: '',
-    content: '',
-    tags: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    parentId: null,
-    authorId: this.authService.user()!.uid
-  };
-  tagInput = '';
+  constructor(private fb: FormBuilder) {
+    this.postForm = this.fb.group({
+      fileName: ['', Validators.required],
+      folderName: ['', Validators.required],
+      title: ['', Validators.required],
+      description: [''],
+      content: ['', Validators.required],
+      tags: ['']
+    });
+  }
 
   async createPost() {
-    if (this.newPost.title && this.newPost.content) {
-      this.newPost.tags = this.tagInput.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-      this.newPost.authorId = this.authService.user()!.uid;
-      if (this.postService.selectedPost()) {
-        this.newPost.parentId = this.postService.selectedPost()!.id;
-      } else {
-        this.newPost.parentId = this.authService.user()!.userInfo.mainPageId;
-      }
-      const postId = this.postService.createPost({
-        ...this.newPost
-      });
+    if (this.postForm.valid) {
+      const newPost = {
+        ...this.postForm.value,
+        tags: this.postForm.value.tags.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag !== ''),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        authorId: this.authService.user()!.uid,
+        parentId: this.postStore.currentPost() ? this.postStore.currentPost()!.id : this.authService.user()!.userInfo.mainPageId
+      };
+
+      const postId = await this.postStore.createPost(newPost);
       this.router.navigate(['/post', postId]);
     }
   }

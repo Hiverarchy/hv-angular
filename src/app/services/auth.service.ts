@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthStore } from '../store/auth.store';
-import { User } from '../models/user.model'; // Adjust import path as needed
+import { User, UserInfo } from '../models/user.model'; // Adjust import path as needed
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -39,6 +39,10 @@ export class AuthService {
 
   signUp(email: string, password: string) {
     this.authStore.signUp(email, password);
+  }
+
+  updateUserInfo(userInfo: UserInfo) {
+    this.authStore.updateUserInfo(userInfo);
   }
 
 //   updateProfile(user: Partial<User>) {

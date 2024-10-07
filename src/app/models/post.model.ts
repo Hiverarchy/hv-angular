@@ -1,11 +1,15 @@
 export interface Post {
   id: string;
+  parentId: string | null;
+  arcId: string;
+  childArcs: string[];
+  authorId: string;
+  fileName: string;
+  folderName: string;
   title: string;
   description: string;
   content: string; // HTML or markdown
   tags: string[];
-  parentId: string | null;
-  authorId: string;
   createdAt: Date;
   updatedAt: Date;
 }

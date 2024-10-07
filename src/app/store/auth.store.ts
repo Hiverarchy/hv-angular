@@ -28,6 +28,11 @@ const getUserInfo = async (firestore: Firestore, userId: string) => {
   return null;
 }
 
+const updateUserInfo = async (firestore: Firestore, userId: string, userInfo: UserInfo) => {
+  const userRef = doc(firestore, 'users', userId);
+  await updateDoc(userRef, { ...userInfo });
+}
+
 const createInitialUserPost = async (firestore: Firestore, userId: string) => {
   const postsCollection = collection(firestore, 'posts');
   const newPost = {
@@ -155,19 +160,20 @@ export const AuthStore = signalStore(
       }
     },
     setUser: (user: User | undefined) => patchState(store, { user }),
-    // updateProfile: async (profileData: { displayName?: string | null, photoURL?: string | null }) => {
-    //   patchState(store, { loading: true, error: null });
-    //   try {
-    //     const currentUser = auth.currentUser;
-    //     if (currentUser) {
-    //       await updateProfile(currentUser, profileData);
-    //       patchState(store, { user: currentUser, loading: false });
-    //     } else {
-    //       throw new Error('No user is currently signed in');
-    //     }
-    //   } catch (error) {
-    //     patchState(store, { error: 'Failed to update profile', loading: false });
-    //   }
-    // },
+    updateUserInfo: async (userInfo: UserInfo) => {
+      patchState(store, { loading: true, error: null });
+      try {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          await updateUserInfo(firestore, currentUser.uid, userInfo);
+          const user: User = { uid: currentUser.uid, userInfo };
+          patchState(store, { user, loading: false });
+        } else {
+          throw new Error('No user is currently signed in');
+        }
+      } catch (error) {
+        patchState(store, { error: 'Failed to update user info', loading: false });
+      }
+    },
   }))
 )
