@@ -33,6 +33,54 @@ const updateUserInfo = async (firestore: Firestore, userId: string, userInfo: Us
   await updateDoc(userRef, { ...userInfo });
 }
 
+const updateUserFavoritePosts = async (firestore: Firestore, action: 'add' | 'delete' | 'update', userId: string, post: Post) => {
+  const userRef = doc(firestore, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if (userSnap.exists()) {
+    const userInfo = userSnap.data() as UserInfo;
+    if (action === 'add') {
+      userInfo.favorites.push({id: post.id, title: post.title, children: []});
+    } else if (action === 'delete') {
+      userInfo.favorites = userInfo.favorites.filter(p => p.id !== post.id);
+    } else if (action === 'update') {
+      userInfo.favorites = userInfo.favorites.map(p => p.id === post.id ? {id : p.id, title: post.title, children: p.children} : p);
+    }
+    await updateDoc(userRef, { ...userInfo });
+  }
+}
+
+const updateUserBookmarkPosts = async (firestore: Firestore, action: 'add' | 'delete' | 'update', userId: string, post: Post) => {
+  const userRef = doc(firestore, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if (userSnap.exists()) {
+    const userInfo = userSnap.data() as UserInfo;
+    if (action === 'add') {
+      userInfo.bookmarks.push({id: post.id, title: post.title, children: []});
+    } else if (action === 'delete') {
+      userInfo.bookmarks = userInfo.bookmarks.filter(p => p.id !== post.id);
+    } else if (action === 'update') {
+      userInfo.bookmarks = userInfo.bookmarks.map(p => p.id === post.id ? {id : p.id, title: post.title, children: p.children} : p);
+    }
+    await updateDoc(userRef, { ...userInfo });
+  }
+}
+
+const updateUserRecentsPosts = async (firestore: Firestore, action: 'add' | 'delete' | 'update', userId: string, post: Post) => {
+  const userRef = doc(firestore, 'users', userId);
+  const userSnap = await getDoc(userRef);
+  if (userSnap.exists()) {
+    const userInfo = userSnap.data() as UserInfo;
+    if (action === 'add') {
+      userInfo.recents.push({id: post.id, title: post.title, children: []});
+    } else if (action === 'delete') {
+      userInfo.recents = userInfo.recents.filter(p => p.id !== post.id);
+    } else if (action === 'update') {
+      userInfo.recents = userInfo.recents.map(p => p.id === post.id ? {id : p.id, title: post.title, children: p.children} : p);
+    }
+    await updateDoc(userRef, { ...userInfo });
+  }
+}
+
 const createInitialUserPost = async (firestore: Firestore, userId: string) => {
   const postsCollection = collection(firestore, 'posts');
   const newPost = {
@@ -40,37 +88,30 @@ const createInitialUserPost = async (firestore: Firestore, userId: string) => {
     content: 'This is my personal page. I\'ll be sharing my thoughts and experiences here.',
     authorId: userId,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    parentId: null,
   };
   const docRef = await addDoc(postsCollection, newPost);
   return { id: docRef.id, ...newPost };
 }
 const createUserInfo = async (firestore: Firestore, userCredential: UserCredential) => {
   const userRef = doc(firestore, 'users', userCredential.user.uid);
+  const initialPost = await createInitialUserPost(firestore, userCredential.user.uid) as Post;
   const userData = {
     email: userCredential.user.email,
     displayName: userCredential.user.displayName,
     photoURL: userCredential.user.photoURL,
     phoneNumber: userCredential.user.phoneNumber,
+    mainPageId: initialPost.id,
     tags: [],
-    mainPageId: '',
-    posts: [] as PostNavItem[],
     headerHTML: '',
     footerHTML: '',
+    favorites:  [] as PostNavItem[],
+    bookmarks: [] as PostNavItem[],
+    recents: [] as PostNavItem[],
   };
-  await setDoc(userRef, userData);
-     // Create initial post for the user
-     const initialPost = await createInitialUserPost(firestore, userCredential.user.uid) as Post;
-      
-     // Update user info with the new post
-     userData.mainPageId = initialPost.id;
-     userData.posts.push({id: initialPost.id, title: initialPost.title, children: []});
-     await updateDoc(userRef, {
-       mainPageId: initialPost.id,
-       posts: [{id: initialPost.id, title: initialPost.title}]
-     });
-     
-     return userData;
+  await setDoc(userRef, userData);     
+  return userData;
  }
 
 
@@ -175,5 +216,7 @@ export const AuthStore = signalStore(
         patchState(store, { error: 'Failed to update user info', loading: false });
       }
     },
-  }))
-)
+    updateUserFavoritePosts,
+    updateUserBookmarkPosts,
+    updateUserRecentsPosts,
+  })))

@@ -143,7 +143,6 @@ export class EditUserInfoComponent implements OnInit {
       const updatedUserInfo: UserInfo = {
         ...this.userForm.value,
         tags: this.userForm.value.tags.split(',').map((tag: string) => tag.trim()),
-        posts: this.userInfo ? this.userInfo.posts : []
       };
       this.authService.updateUserInfo(updatedUserInfo);
       this.router.navigate(['/profile']);

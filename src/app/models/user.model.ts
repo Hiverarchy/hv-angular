@@ -7,7 +7,9 @@ export interface UserInfo {
     phoneNumber: string;
     tags: string[];
     mainPageId: string;
-    posts: PostNavItem[];
+    favorites: PostNavItem[];
+    bookmarks: PostNavItem[];
+    recents: PostNavItem[];
     headerHTML: string;
     footerHTML: string;
 }

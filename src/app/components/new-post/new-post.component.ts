@@ -128,11 +128,11 @@ export class NewPostComponent {
         createdAt: new Date(),
         updatedAt: new Date(),
         authorId: this.authService.user()!.uid,
-        parentId: this.postStore.currentPost() ? this.postStore.currentPost()!.id : this.authService.user()!.userInfo.mainPageId
+        parentId: this.postStore.currentPost()!.id !== this.authService.user()!.userInfo.mainPageId ? this.postStore.currentPost()!.id : ''
       };
 
-      const postId = await this.postStore.createPost(newPost);
-      this.router.navigate(['/post', postId]);
+      const post = await this.postStore.createPost(newPost);
+      this.router.navigate(['/post', post.id]);
     }
   }
 }
