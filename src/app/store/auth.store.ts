@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { signalStore, withState, patchState, withMethods } from '@ngrx/signals';
-import { Auth, User as FirebaseUser, UserCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, updateProfile } from '@angular/fire/auth';
+import { Auth, User as FirebaseUser, UserCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc, collection, addDoc, updateDoc } from '@angular/fire/firestore';
+import { Functions, httpsCallable } from '@angular/fire/functions';
 import { Router } from '@angular/router';
 import { User, UserInfo } from '../models/user.model';
 import { Post, PostNavItem } from '../models/post.model';
@@ -19,13 +20,23 @@ const initialState: AuthState = {
 };
 
 
-const getUserInfo = async (firestore: Firestore, userId: string) => {
-  const userRef = doc(firestore, 'users', userId);
-  const userSnap = await getDoc(userRef);
-  if (userSnap.exists()) {
-    return userSnap.data();
+async function getUserInfo(uid: string) {
+  const functionUrl = 'https://us-central1-hiverarchy-firebase.cloudfunctions.net/getUserInfo';
+  const response = await fetch(functionUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ data: { uid } }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error.message);
   }
-  return null;
+
+  const result = await response.json();
+  return result.data;
 }
 
 const updateUserInfo = async (firestore: Firestore, userId: string, userInfo: UserInfo) => {
@@ -124,14 +135,18 @@ const navigateToUserMainPage = (userInfo: any, router: Router) => {
   }
 }
 
+const getUserInfoFromFunction = async (functions: Functions, uid: string): Promise<UserInfo> => {
+  const getUserInfo = httpsCallable(functions, 'getUserInfo');
+  const result = await getUserInfo({ uid });
+  return result.data as UserInfo;
+}
+
 export const AuthStore = signalStore(
   withState(initialState),
-  withMethods((store, auth = inject(Auth), firestore = inject(Firestore), router = inject(Router)) => ({
-
-
+  withMethods((store, auth = inject(Auth), firestore = inject(Firestore), functions = inject(Functions), router = inject(Router)) => ({
     checkAuth: async () => {
       if (auth.currentUser) {
-        const userInfo = await getUserInfo(firestore, auth.currentUser.uid) as UserInfo;
+        const userInfo = await getUserInfo(auth.currentUser.uid) as UserInfo;
         if (userInfo) {
           const user: User = {
             uid: auth.currentUser.uid,
@@ -147,7 +162,7 @@ export const AuthStore = signalStore(
       patchState(store, { loading: true, error: null });
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const userInfo = await getUserInfo(firestore, userCredential.user.uid) as UserInfo;
+        const userInfo = await getUserInfoFromFunction(functions, userCredential.user.uid);
         if (userInfo) {
           const user: User = {
             uid: userCredential.user.uid,
@@ -179,7 +194,7 @@ export const AuthStore = signalStore(
       try {
         const provider = new GoogleAuthProvider();
         const userCredential = await signInWithPopup(auth, provider);
-          let userInfo = await getUserInfo(firestore, userCredential.user.uid) as UserInfo;
+        let userInfo = await getUserInfoFromFunction(functions, userCredential.user.uid);
         if (!userInfo) {
           userInfo = await createUserInfo(firestore, userCredential) as UserInfo;
         } 
