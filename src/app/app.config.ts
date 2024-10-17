@@ -16,6 +16,8 @@ import { AuthStore } from './store/auth.store';
 import { PostStore } from './store/post.store';
 import { PostService } from './services/post.service';
 import { MarkdownModule, provideMarkdown } from 'ngx-markdown';
+import { ArcService } from './services/arc.service';
+import { ArcStore } from './store/arc.store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,6 +34,8 @@ export const appConfig: ApplicationConfig = {
     AuthStore,
     PostService,
     PostStore,
+    ArcService,
+    ArcStore,
     importProvidersFrom(
       HttpClientModule,
       MarkdownModule.forRoot()

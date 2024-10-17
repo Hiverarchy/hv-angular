@@ -22,13 +22,13 @@ export class AuthService {
 
   login(email: string, password: string) {
     this.authStore.login(email, password);
-    const url = this.user()?.userInfo?.mainPageId ? `/posts/${this.user()?.userInfo?.mainPageId}` : '/';
+    const url = this.user()?.userInfo?.mainPageId ? `/arc/${this.user()?.userInfo?.mainPageId}` : '/';
     this.router.navigateByUrl(url);
   }
 
   loginWithGoogle() {
     this.authStore.signInWithGoogle();
-    const url = this.user()?.userInfo?.mainPageId ? `/posts/${this.user()?.userInfo?.mainPageId}` : '/';
+    const url = this.user()?.userInfo?.mainPageId ? `/arc/${this.user()?.userInfo?.mainPageId}` : '/';
     this.router.navigateByUrl(url);
   }
 
@@ -44,10 +44,6 @@ export class AuthService {
   updateUserInfo(userInfo: UserInfo) {
     this.authStore.updateUserInfo(userInfo);
   }
-
-//   updateProfile(user: Partial<User>) {
-//     this.authStore.updateProfile(user);
-//   }
 
   isLoggedIn(): boolean {
     return this.user() !== null && this.user() !== undefined;

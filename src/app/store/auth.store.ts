@@ -92,28 +92,30 @@ const updateUserRecentsPosts = async (firestore: Firestore, action: 'add' | 'del
   }
 }
 
-const createInitialUserPost = async (firestore: Firestore, userId: string) => {
-  const postsCollection = collection(firestore, 'posts');
-  const newPost = {
-    title: 'Welcome to My Page',
-    content: 'This is my personal page. I\'ll be sharing my thoughts and experiences here.',
-    authorId: userId,
+const createInitialUserArc = async (firestore: Firestore, userId: string) => {
+  const arcsCollection = collection(firestore, 'arcs');
+  const newArc = {
+    name: 'Welcome to My Arc',
+    description: 'This is my personal arc. I\'ll be sharing my thoughts and experiences here.',
+    posts: [],
+    arcs: [],
+    hierarchy: {},
     createdAt: new Date(),
     updatedAt: new Date(),
-    parentId: null,
   };
-  const docRef = await addDoc(postsCollection, newPost);
-  return { id: docRef.id, ...newPost };
+  const docRef = await addDoc(arcsCollection, newArc);
+  return { id: docRef.id, ...newArc };
 }
+
 const createUserInfo = async (firestore: Firestore, userCredential: UserCredential) => {
   const userRef = doc(firestore, 'users', userCredential.user.uid);
-  const initialPost = await createInitialUserPost(firestore, userCredential.user.uid) as Post;
+  const initialArc = await createInitialUserArc(firestore, userCredential.user.uid);
   const userData = {
     email: userCredential.user.email,
     displayName: userCredential.user.displayName,
     photoURL: userCredential.user.photoURL,
     phoneNumber: userCredential.user.phoneNumber,
-    mainPageId: initialPost.id,
+    mainPageId: initialArc.id,
     tags: [],
     headerHTML: '',
     footerHTML: '',
@@ -123,12 +125,11 @@ const createUserInfo = async (firestore: Firestore, userCredential: UserCredenti
   };
   await setDoc(userRef, userData);     
   return userData;
- }
-
+}
 
 const navigateToUserMainPage = (userInfo: any, router: Router) => {
   if (userInfo && userInfo.mainPageId) {
-    router.navigateByUrl(`/posts/${userInfo.mainPageId}`);
+    router.navigateByUrl(`/arc/${userInfo.mainPageId}`);
   } else {
     console.error('User main page not found');
     router.navigate(['/login']);
