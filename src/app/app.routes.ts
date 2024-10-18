@@ -21,6 +21,17 @@ export const routes: Routes = [
     loadComponent: () => import('./components/post-detail/post-detail.component').then(c => c.PostDetailComponent), 
     canActivate: [loggedInGuard] 
   },
-  { path: 'arc', component: ArcComponent, canActivate: [loggedInGuard] },
+  { path: 'arc/new', 
+    loadComponent: () => import('./components/new-arc/new-arc.component').then(c => c.NewArcComponent), 
+    canActivate: [loggedInGuard] 
+  },
+  { path: 'arc/edit/:id', 
+    loadComponent: () => import('./components/edit-arc/edit-arc.component').then(c => c.EditArcComponent), 
+    canActivate: [loggedInGuard] 
+  },
+  { path: 'arc/:id', 
+    loadComponent: () => import('./components/arc-detail/arc-detail.component').then(c => c.ArcDetailComponent), 
+    canActivate: [loggedInGuard] 
+  },
   { path: '**', redirectTo: '/' } // Catch-all route
 ];

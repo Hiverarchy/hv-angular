@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ArcService } from '../../services/arc.service';
 import { PostService } from '../../services/post.service';
 import { Arc } from '../../models/arc.model';
@@ -104,6 +104,7 @@ export class ArcComponent implements OnInit {
   private arcService = inject(ArcService);
   private postService = inject(PostService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   constructor(private fb: FormBuilder) {
     this.arcForm = this.fb.group({
@@ -122,16 +123,18 @@ export class ArcComponent implements OnInit {
   }
 
   loadCurrentArc() {
-    // Load the current arc if available
-    this.arcService.getArcById('currentArcId').then(arc => {
-      if (arc) {
-        this.currentArc = arc;
-        this.arcForm.patchValue({
-          name: arc.name,
-          description: arc.description
-        });
-      }
-    });
+    const arcId = this.route.snapshot.paramMap.get('id');
+    if (arcId) {
+      this.arcService.getArcById(arcId).then(arc => {
+        if (arc) {
+          this.currentArc = arc;
+          this.arcForm.patchValue({
+            name: arc.name,
+            description: arc.description
+          });
+        }
+      });
+    }
   }
 
   onSubmit() {
